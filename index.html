@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Jay's Bookshelf</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="file:///Users/jay.yuan/Downloads/bootstrap.min.css">
+</head>
+        <nav class="TopNav">   
+            <span><a href="index.html">Home</a></li>
+            <span><a href="html/about.html">About</a></li>
+            <span><a href="html/contact.html">Contact</a></li>
+        </nav>
+<body> 
+    <div class="container">
+        <div id="headerEle">
+        <!-- add books via title, name, language, subject -->
+        <!-- <form class="add_func"> -->
+            <h3>Add Books Here</h3>
+            <input type="text"  class = "addInput" placeholder="Enter Book Title" id="title-input" required/>
+            <input type="text"  class = "addInput" placeholder="Enter Author Name" id="author-input" required/>
+            <input type="text"  class = "addInput" placeholder="Enter Language" id="lang-input" required/>
+            <input type="text"  class = "addInput" placeholder="Enter Subject" id="subj-input" required/>
+            <br>
+            <button type="submit" id="addBook">Add to Library</button>
+            <hr>
+        </div>
+        <!-- </form> -->
+        <div id="booklist">
+            <h2>Book List</h2>
+        </div>
+    </div>
+<script type="module" src="./index.js">
+</script>
+</body>
+</html>
