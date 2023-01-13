@@ -45,8 +45,7 @@ class Bookshelf {
       //create div for input box and submit button
       this.commentDiv = document.createElement('div');
       this.commentInput = document.createElement('textarea');
-      this.commentDiv.style.display = 'none';
-      this.commRender.style.display = 'none';
+      
       //create unique ID for each input
       this.commentInput.setAttribute('id', 'input'+ index)
           this.commentInput.setAttribute('type', 'text');
@@ -60,6 +59,10 @@ class Bookshelf {
       //create unique ID for each comment to pop up later
       this.commRender.setAttribute('id', 'comm'+index)
       this.commRender.setAttribute('class', 'commRender')
+
+      // set items that we want to hide and reappear when button is clicked
+      this.commentDiv.style.display = 'none';
+      this.commRender.style.display = 'none';
       
       //click to display 
       this.addComment.addEventListener('click',()=>{
@@ -72,10 +75,9 @@ class Bookshelf {
       this.commentButt.addEventListener('click', ()=>{
         let currInput = document.querySelector(`#input${index}`).value;
         let currComm = document.querySelector(`#comm${index}`);
+        //create list item to store input value then append them to the respective ol parent
         let newLi = document.createElement('li');
-        console.log(`this is currinput ${currInput}, this is currComm ${currComm} `)
         newLi.innerText = currInput;
-        console.log(newLi);
         currComm.appendChild(newLi)
         currInput = '';
      })
@@ -100,7 +102,6 @@ class Bookshelf {
       const subj_input = document.querySelector('#subj-input').value;
       //construct new book according to user input
       const newBook = new Book (author_input, lang_input[0]+lang_input[1], subj_input, title_input);
-      console.log (newBook);
       BookShelfArr.push(newBook);
       this.bookRender();
       //set input box to be empty after
