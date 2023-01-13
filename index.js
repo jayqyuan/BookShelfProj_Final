@@ -1,10 +1,4 @@
 import { bookData } from "./js/book-data.js"
-//global render variable
-
-//function to clear input boxes
-
-let paraBreak = document.createElement('br')
-
 
 // Book class - to process the book-data array
 class Book {
@@ -13,9 +7,9 @@ class Book {
       this.language = language
       this.subject = subject;
       this.title = title;
+      this.toComment = document.createElement('button');
     }
-}
-
+  }
 //list of books - book cart - imported from book data
 let BookShelfArr = [];
 for(let property of bookData){ 
@@ -29,8 +23,6 @@ class Bookshelf {
     constructor(book){
       // this.booksArr = booksArr;
       this.book = book
-      
-  
       //keep track of favorites
    }
    // add books after inputting required arguments
@@ -41,33 +33,51 @@ class Bookshelf {
       //variables
       this.ele = document.createElement('div');
       this.book = document.createElement('div');
-      this.commRender = document.createElement('div');
+      this.commRender = document.createElement('ul');
       const bookEle = document.createElement('div');
       //rendering books
-      this.book.innerHTML = `<strong>Title:</strong> ${element.title} <br> <strong>Author:</strong> ${element.author} <br> <strong>Language:</strong> ${element.language} <br> <strong>Subject:</strong> <br> ${element.subject}<hr>`;
+      this.book.innerHTML = `<strong>Title:</strong> ${element.title} <br> <strong>Author:</strong> ${element.author} <br> <strong>Language:</strong> ${element.language} <br> <strong>Subject:</strong> <br> ${element.subject}<hr> `;
       this.ele.appendChild(this.book);
-      
+      //create button to unhide comment section
+      this.addComment = document.createElement('button');
+      this.addComment.innerHTML = 'click to add comment'
+      this.ele.appendChild(this.addComment);
       //create div for input box and submit button
       this.commentDiv = document.createElement('div');
       this.commentInput = document.createElement('textarea');
+      this.commentDiv.style.display = 'none';
+      this.commRender.style.display = 'none';
       //create unique ID for each input
       this.commentInput.setAttribute('id', 'input'+ index)
           this.commentInput.setAttribute('type', 'text');
           this.commentInput.setAttribute('maxlength', 270);
           this.commentButt = document.createElement('button');
-          this.commentButt.innerHTML = 'Submit Comment';
+          this.commentButt.innerHTML = 'Submit';
       this.commentDiv.appendChild(this.commentInput);
       this.commentDiv.appendChild(this.commentButt);
-      this.commentDiv.setAttribute('class', 'commentDiv');
+      this.commentDiv.setAttribute('class', 'commentDiv') ;
+      this.commentDiv.setAttribute('id', 'commentDiv'+index)
       //create unique ID for each comment to pop up later
       this.commRender.setAttribute('id', 'comm'+index)
       this.commRender.setAttribute('class', 'commRender')
+      
+      //click to display 
+      this.addComment.addEventListener('click',()=>{
+        let currDiv = document.querySelector(`#commentDiv${index}`);
+        let currComm = document.querySelector(`#comm${index}`);
+        currDiv.style.display = 'flex';
+        currComm.style.display = 'inline';
+      })
       //create event listener to take in value from the input box
       this.commentButt.addEventListener('click', ()=>{
-        let currInput = document.querySelector(`#input${index}`)
-        let currComm = document.querySelector(`#comm${index}`)
-        currComm.innerHTML = currInput.value;
-        currInput.value = '';
+        let currInput = document.querySelector(`#input${index}`).value;
+        let currComm = document.querySelector(`#comm${index}`);
+        let newLi = document.createElement('li');
+        console.log(`this is currinput ${currInput}, this is currComm ${currComm} `)
+        newLi.innerText = currInput;
+        console.log(newLi);
+        currComm.appendChild(newLi)
+        currInput = '';
      })
 
      //append everything into booklist Div
@@ -76,7 +86,7 @@ class Bookshelf {
       bookEle.appendChild(this.commRender);
       bookEle.setAttribute('class', 'bookEle')
       bookList.appendChild(bookEle);
-      bookEle.style.padding = '10px'
+
     })
    }
 
@@ -102,6 +112,7 @@ class Bookshelf {
    }
   }
   
+
 
 new Bookshelf().bookRender();
 new Bookshelf().addBook();
